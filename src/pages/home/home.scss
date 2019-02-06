@@ -297,4 +297,10 @@ page-home {
 		    text-align: right;	    	
 	    }		
 	}
+	.list-destination {
+	    position: absolute;
+	    z-index: 10;
+	    top: 112px;
+	    right: 62px;		
+	}
 }

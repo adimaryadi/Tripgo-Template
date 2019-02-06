@@ -21,7 +21,7 @@
 					</div>
 				</div>
 				<div class="input-select">
-					<ion-icon name="pin"></ion-icon><ion-input type="text" placeholder="Tujuan" ></ion-input>
+					<ion-icon name="pin"></ion-icon><ion-input type="text" placeholder="Tujuan" #destination (keyup)="Tujuan(destination.value)" [(ngModel)]="kota_tujuan"></ion-input>
 				</div>
 				<div class="back-forward">
 					<button ion-button class="btn-custom"><ion-icon name="swap"></ion-icon></button>
@@ -97,11 +97,21 @@
 	</div>
 </div>
 </ion-content>
+
 <div class="list-select" *ngIf="list_kota">
 	<div class="icon-close">
 		<ion-icon name="close" (click)="list_close()"></ion-icon>
 	</div>
 	<ion-list>
 		<ion-item *ngFor="let city of filter_kota" (click)="selected_city(city.kota)">{{ city.kota }}</ion-item>
+	</ion-list>
+</div>
+
+<div class="list-select" *ngIf="tujuan_kota">
+	<div class="icon-close">
+		<ion-icon name="close"></ion-icon>
+	</div>
+	<ion-list>
+		<ion-item *ngFor="let tujuan of filter_tujuan" (click)="selected_dest(tujuan.kota)">{{ tujuan.kota }}</ion-item>
 	</ion-list>
 </div>

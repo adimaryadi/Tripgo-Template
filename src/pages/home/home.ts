@@ -41,17 +41,31 @@ export class HomePage {
   }
 
   starting    =   '';
+  kota_tujuan =   '';
 
   data_kota   =   [{kota: 'Bandung'},{kota: 'Lembang'},{kota: 'Serang'},{kota: 'Bekasi'},{kota: 'Jakarta'}];
   filter_kota;
   list_kota   =   false;
+  tujuan_kota =   false;
+  filter_tujuan;
 
   Start(value) {
     if (value.length >= 1) {
       this.list_kota           =   true;
-      this.filter_kota         =   this.data_kota.filter(data => data.kota.length >= value.length);
+      this.tujuan_kota         =   false;
+      this.filter_kota         =   this.data_kota.filter(mulai => mulai.kota.length >= value.length);
     } else {
       this.list_kota    =   false;
+    }
+  }
+
+  Tujuan(value) {
+    if (value.length >= 1) {
+      this.tujuan_kota         =   true;
+      this.list_kota           =   false;
+      this.filter_tujuan       =   this.data_kota.filter(tujuan => tujuan.kota.length >= value.length);
+    } else {
+      this.tujuan_kota         =   false;
     }
   }
 
@@ -59,6 +73,11 @@ export class HomePage {
     this.starting       =   kota;
     this.list_kota      =   false;
   }
+  selected_dest(kota) {
+    this.kota_tujuan    =   kota;
+    this.tujuan_kota    =   false;
+  }
+
   list_close() {
     this.list_kota      =   false;
   }
