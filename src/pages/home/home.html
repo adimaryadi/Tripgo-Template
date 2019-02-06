@@ -1,14 +1,107 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+    <div class="section">
+    	<div class="button-nav">
+    		<ion-icon name="list"></ion-icon>
+    		<ion-icon name="more"></ion-icon>
+    	</div>
+    	<div class="title">
+    		<h3>Trip</h3><h4>Go</h4>
+    	</div>
+    </div>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-toolbar>
+	<div class="select-destination">
+		<div class="custom-input">
+				<div class="input-select">
+					<ion-icon name="man"></ion-icon><ion-input type="text" placeholder="Mulai Berangkat" #mulai (keyup)="Start(mulai.value)" [(ngModel)]="starting"></ion-input><ion-icon name="locate"></ion-icon>
+					<div class="input-underline">
+					</div>
+				</div>
+				<div class="input-select">
+					<ion-icon name="pin"></ion-icon><ion-input type="text" placeholder="Tujuan" ></ion-input>
+				</div>
+				<div class="back-forward">
+					<button ion-button class="btn-custom"><ion-icon name="swap"></ion-icon></button>
+				</div>
+				<button ion-button round>Reset</button>
+		</div>
+	</div>
+</ion-toolbar>
+<div class="judul-header">
+	<span>Jadwal Keberangkatan</span>
+	<p>{{ monthYear }}</p>
+</div>
+<ion-content no-padding>
+<div class="leave-time">
+	<ion-slides #slides>
+		<ion-slide>
+			<div class="time-now">
+				<h3>Bulan</h3>
+				<div class="slide-list">
+					<div class="box-bulan" *ngFor="let daymoth of month" (click)="pilihBerangkat(daymoth.bulan)">
+						<h4>{{ daymoth.bg.bs }}</h4>
+					</div>		
+				</div>
+				<div class="nav-slide">
+		<!-- 			<img src="assets/icon/arrow-back.svg" class="back">
+					<img src="assets/icon/arrow-forward.svg" class="forward" (click)="forward(5)"> -->
+				</div>
+			</div>
+			<div class="next-slide">
+				<button ion-button round (click)="TanggalBerangkat()">Tanggal Berangkat</button>
+			</div>							
+		</ion-slide>
+		<ion-slide>
+			<div class="time-now">
+				<h3>Tanggal Keberangkatan</h3>
+				<div class="slide-list">
+					<div class="box" *ngFor="let day of timedate" (click)="TanggalPilih(day.tanggal)">
+						<h4>{{ day.tanggal }}</h4>
+					</div>
+				</div>
+			</div>
+			<div class="next-slide">
+				<button ion-button color="warning" round (click)="backbulan()">kembali</button>
+				<button ion-button round (click)="JadwalKeberangkatan()">jam keberangkatan </button>
+			</div>			
+		</ion-slide>
+		<ion-slide>
+			<div class="time-now">
+				<h3>Jam Keberangkatan</h3>
+				<div class="slide-list">
+					<ion-item>
+					  <ion-label>Klik Disini</ion-label>
+					  <ion-datetime displayFormat="h:mm a" [(ngModel)]="time"></ion-datetime>
+					</ion-item>
+				</div>
+				<div class="next-slide">
+					<button ion-button color="warning" round (click)="backtanggal()">Kembali</button>
+					<!-- <button ion-button round (click)="Transportasi()">Transportasi</button> -->
+				</div>
+			</div>
+		</ion-slide>
+	</ion-slides>
+	<div class="pilih-transport">
+		<div class="title">
+			<span>Transportasi</span>
+		</div>
+		<button ion-button class="left-btntransport" color="light"><ion-icon name="bus"></ion-icon> Bus</button>
+		<button ion-button class="center-btntransport" color="primary" round><img src="/assets/icon/airplane.svg"><br> <span class="text">Pesawat</span></button>
+		<button ion-button class="right-btntransport" color="light"><ion-icon name="train"></ion-icon> Kereta</button>
+	</div>	
+	<div class="">
+		
+	</div>
+</div>
 </ion-content>
+<div class="list-select" *ngIf="list_kota">
+	<div class="icon-close">
+		<ion-icon name="close" (click)="list_close()"></ion-icon>
+	</div>
+	<ion-list>
+		<ion-item *ngFor="let city of filter_kota" (click)="selected_city(city.kota)">{{ city.kota }}</ion-item>
+	</ion-list>
+</div>
