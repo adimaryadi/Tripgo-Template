@@ -29,30 +29,57 @@ export class HomePage {
   	for (var i = 1; i <= 31; i++) {
   		this.timedate.push({tanggal: i});
   	}
-
   }
 
   bulanberangkat:number;
+  bulanberangkatString:String;
   tanggalKeberangkatan:number;
   time:string;
-
-  pilihBerangkat(bulan) {
-  	  this.bulanberangkat 	= 	bulan;	
+  mengunakan_transport:string    =   null;
+  date   =   new  Date();
+  tahun  =   this.date.getFullYear();
+  pilihBerangkat(bulannumber,bulanstring) {
+    
+    if (this.starting == '') {
+      this.peringatan_start     =   true;
+    } else if(this.kota_tujuan == '') {
+      this.peringatan_tujuan    =   true;
+    } else {
+      this.peringatan_start      =   false;
+  	  this.bulanberangkat 	     = 	bulannumber;
+      this.bulanberangkatString  =  bulanstring;
+    }	
   }
 
-  starting    =   '';
-  kota_tujuan =   '';
+  Mengunakan_transport(value) {
+    if (this.time == undefined) {
+       let pesan    =   this.alert.create({
+         title:   'Pemberitahuan !',
+         message: 'Jadwal Keberangkatan harus di isi',
+         buttons: ['OK']
+       })
+       pesan.present();
+    } else {
+      this.mengunakan_transport   =   value;
+    }
+  }
 
-  data_kota   =   [{kota: 'Bandung'},{kota: 'Lembang'},{kota: 'Serang'},{kota: 'Bekasi'},{kota: 'Jakarta'}];
+  peringatan_start  =   false;
+  peringatan_tujuan =   false;
+  starting          =   '';
+  kota_tujuan       =   '';
+
+  data_kota         =   [{kota: 'Bandung'},{kota: 'Lembang'},{kota: 'Serang'},{kota: 'Bekasi'},{kota: 'Jakarta'}];
   filter_kota;
-  list_kota   =   false;
-  tujuan_kota =   false;
+  list_kota         =   false;
+  tujuan_kota       =   false;
   filter_tujuan;
 
   Start(value) {
     if (value.length >= 1) {
       this.list_kota           =   true;
       this.tujuan_kota         =   false;
+      this.peringatan_start    =   false;
       this.filter_kota         =   this.data_kota.filter(mulai => mulai.kota.length >= value.length);
     } else {
       this.list_kota    =   false;
@@ -63,6 +90,8 @@ export class HomePage {
     if (value.length >= 1) {
       this.tujuan_kota         =   true;
       this.list_kota           =   false;
+      this.peringatan_start    =   false;
+      this.peringatan_tujuan   =   false;
       this.filter_tujuan       =   this.data_kota.filter(tujuan => tujuan.kota.length >= value.length);
     } else {
       this.tujuan_kota         =   false;

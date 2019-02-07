@@ -69,6 +69,23 @@ page-home {
 		.custom-input {
 			padding: 5px;
 		    width: 85%;
+		    .icon-pesawat {
+    			width: 13px;		    	
+		    }		    
+		    .goto {
+				position: relative;
+			    display: inline;
+			    top: 6px;
+			    color: white;
+			    .ion-md-arrow-round-forward {
+				    top: 2px;
+				    position: relative;		    	
+			    }
+			    .icon-md {
+					position: relative;
+					padding: 2px;		    	
+			    }
+		    }
 		    .back-forward {
 			    position: absolute;
 			    top: 27px;
@@ -108,6 +125,12 @@ page-home {
 			    padding: 3px;
 			    padding-top: 8px;		    	
 		    }	
+		    .ion-md-alert {
+				font-size: 18px;
+			    color: tomato;
+			    top: 8px;
+			    position: relative;		    	
+		    }
 		    .text-input {
 		    	color: white;
 
@@ -296,11 +319,5 @@ page-home {
 		    left: 0;
 		    text-align: right;	    	
 	    }		
-	}
-	.list-destination {
-	    position: absolute;
-	    z-index: 10;
-	    top: 112px;
-	    right: 62px;		
 	}
 }

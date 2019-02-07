@@ -16,17 +16,20 @@
 	<div class="select-destination">
 		<div class="custom-input">
 				<div class="input-select">
-					<ion-icon name="man"></ion-icon><ion-input type="text" placeholder="Mulai Berangkat" #mulai (keyup)="Start(mulai.value)" [(ngModel)]="starting"></ion-input><ion-icon name="locate"></ion-icon>
+					<ion-icon name="man"></ion-icon><ion-input type="text" placeholder="Mulai Berangkat" #mulai (keyup)="Start(mulai.value)" [(ngModel)]="starting"></ion-input><ion-icon name="alert" *ngIf="peringatan_start"> Kosong</ion-icon><ion-icon name="locate"></ion-icon>
 					<div class="input-underline">
 					</div>
 				</div>
 				<div class="input-select">
-					<ion-icon name="pin"></ion-icon><ion-input type="text" placeholder="Tujuan" #destination (keyup)="Tujuan(destination.value)" [(ngModel)]="kota_tujuan"></ion-input>
+					<ion-icon name="pin"></ion-icon><ion-input type="text" placeholder="Tujuan" #destination (keyup)="Tujuan(destination.value)" [(ngModel)]="kota_tujuan"></ion-input><ion-icon name="alert" *ngIf="peringatan_tujuan"> Kosong</ion-icon>
 				</div>
 				<div class="back-forward">
 					<button ion-button class="btn-custom"><ion-icon name="swap"></ion-icon></button>
 				</div>
 				<button ion-button round>Reset</button>
+				<div class="goto">
+					<ion-icon name="man" *ngIf="starting"> {{ starting }}</ion-icon><ion-icon name="arrow-round-forward" *ngIf="kota_tujuan"></ion-icon><ion-icon name="pin" *ngIf="kota_tujuan"> {{ kota_tujuan }}</ion-icon><ion-icon name="arrow-round-forward" *ngIf="bulanberangkat"></ion-icon><ion-icon name="calendar" *ngIf="bulanberangkat"> {{ tahun }}-{{ bulanberangkatString }}<span *ngIf="tanggalKeberangkatan">-{{ tanggalKeberangkatan }}</span></ion-icon><ion-icon name="arrow-round-forward" *ngIf="time"></ion-icon><ion-icon *ngIf="time" name="time"> {{ time }}</ion-icon><ion-icon name="arrow-round-forward" *ngIf="mengunakan_transport"></ion-icon><ion-icon name="bus" *ngIf="mengunakan_transport == 'bus'"></ion-icon><ion-icon name="md-airplane"></ion-icon><ion-icon name="train" *ngIf="mengunakan_transport == 'kereta'"></ion-icon><img src="/assets/icon/airplane.svg" class="icon-pesawat" *ngIf="mengunakan_transport == 'pesawat'">
+				</div>
 		</div>
 	</div>
 </ion-toolbar>
@@ -41,8 +44,8 @@
 			<div class="time-now">
 				<h3>Bulan</h3>
 				<div class="slide-list">
-					<div class="box-bulan" *ngFor="let daymoth of month" (click)="pilihBerangkat(daymoth.bulan)">
-						<h4>{{ daymoth.bg.bs }}</h4>
+					<div class="box-bulan" *ngFor="let daymonth of month" (click)="pilihBerangkat(daymonth.bulan,daymonth.bg.bs)">
+						<h4>{{ daymonth.bg.bs }}</h4>
 					</div>		
 				</div>
 				<div class="nav-slide">
@@ -88,9 +91,9 @@
 		<div class="title">
 			<span>Transportasi</span>
 		</div>
-		<button ion-button class="left-btntransport" color="light"><ion-icon name="bus"></ion-icon> Bus</button>
-		<button ion-button class="center-btntransport" color="primary" round><img src="/assets/icon/airplane.svg"><br> <span class="text">Pesawat</span></button>
-		<button ion-button class="right-btntransport" color="light"><ion-icon name="train"></ion-icon> Kereta</button>
+		<button ion-button class="left-btntransport" color="light" (click)="Mengunakan_transport(transport = 'bus')"><ion-icon name="bus"></ion-icon> Bus</button>
+		<button ion-button class="center-btntransport" color="primary" (click)="Mengunakan_transport(transport = 'pesawat')" round><img src="/assets/icon/airplane.svg"><br> <span class="text">Pesawat</span></button>
+		<button ion-button class="right-btntransport" color="light" (click)="Mengunakan_transport(transport = 'kereta')"><ion-icon name="train"></ion-icon> Kereta</button>
 	</div>	
 	<div class="">
 		
